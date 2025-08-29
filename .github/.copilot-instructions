@@ -1,0 +1,44 @@
+# Copilot Project Instructions for myfastapi-cli
+
+# Project summary:
+# This repository contains a Python CLI tool (using Typer) for generating Clean Architecture FastAPI backend project templates.
+# The generated projects can use layered or modular (vertical slice) architecture and include built-in JWT authentication.
+
+# General Instructions:
+- Follow Clean Architecture: domain, application, infrastructure, presentation, and core layers.
+- In modular mode, each domain module (e.g., 'auth', 'finance') is a vertical slice with all four layers.
+- Scaffold authentication endpoints and JWT handling by default.
+- Use typing, Pydantic models, and FastAPI best practices.
+- Follow CQRS for commands/queries in the application layer.
+- Write code that is testable and easy to expand with new modules.
+- Use dependency injection for services and repositories.
+
+# File/folder conventions:
+- app/domain/entities/         # Entities and value objects
+- app/application/<feature>/   # CQRS handlers, DTOs for each feature
+- app/infrastructure/          # Repositories, database, external services
+- app/presentation/            # FastAPI routers/controllers, middleware
+- app/core/                    # Shared types, config, DI, utils
+
+# For modular projects, repeat the four main layers per module under app/<module>/.
+
+# Testing:
+- Place tests under /tests, mirroring the app structure.
+
+# Authentication:
+- Include user entity, registration/login endpoints, JWT handling, and role-based decorators.
+- Make it easy to swap or extend auth backends.
+
+# Documentation:
+- Include docstrings for all public classes/methods.
+- Use type hints everywhere.
+
+# Prompt engineering for Copilot:
+- Always generate code that fits the above structure.
+- Prefer modular, extensible, and type-annotated code.
+- For codegen commands, prefer Typer for CLI and FastAPI for web APIs.
+
+# Exclusions:
+- Ignore files in migrations/ and static/generated folders for code suggestions.
+
+# End of instructions.

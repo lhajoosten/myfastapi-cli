@@ -1,0 +1,6 @@
+# Ignore generated and migration files for Copilot suggestions
+migrations/
+static/
+generated/
+.env
+__pycache__/
