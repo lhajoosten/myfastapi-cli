@@ -1,0 +1,47 @@
+[project]
+name = "myfastapi-cli"
+version = "0.1.0"
+description = "CLI to scaffold Clean Architecture FastAPI backend projects (layered or modular) with built-in auth"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [ { name = "L.H.A. Joosten", email = "lhajoosten@outlook.com" } ]
+keywords = ["fastapi", "clean-architecture", "scaffold", "cli", "typer", "vertical-slice", "jwt"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Framework :: FastAPI",
+    "Topic :: Software Development :: Code Generators",
+]
+dependencies = [
+    "typer>=0.12.3",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.1",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "httpx>=0.27.0",
+]
+db = [
+    "sqlalchemy>=2.0.30",
+    "alembic>=1.13.1",
+]
+
+[project.scripts]
+myfastapi = "myfastapi_cli.cli:app"
+
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["myfastapi_cli*"]
+exclude = ["tests*"]

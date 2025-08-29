@@ -6,13 +6,16 @@ A custom CLI tool to scaffold Clean Architecture FastAPI backend projects with o
 
 ## Features
 
-- **Scaffold new FastAPI backend projects** with a single command
-- **Clean Architecture**: Domain, Application, Infrastructure, Presentation, Core
-- **Optional modular mode** for vertical-slice, domain-driven project structure
-- **Built-in authentication** (JWT, roles, extendable)
-- **Add new modules** to existing projects (vertical slice)
-- **Direct folder copy** (no cookiecutter needed)
-- **Extensible**: Easily add features, entities, CQRS handlers, and services
+- Scaffold new FastAPI backend projects (layered or modular)
+- Clean Architecture (domain, application, infrastructure, presentation, core)
+- Optional vertical slice (per‑module) structure
+- Built-in authentication (JWT, roles)
+- Add modules to modular projects
+- Generate CRUD skeletons (command, query, service, router) with optional full CRUD (--full/--minimal)
+- Custom field generation for CRUD via --fields (e.g. --fields "name:str,price:float")
+- Utility commands: list-routers, make-plugin (plugin stub)
+- Direct folder copy (no cookiecutter dependency)
+- Extensible foundation for CQRS, mediator, plugins (docs in `./docs`)
 
 ---
 
@@ -24,13 +27,13 @@ A custom CLI tool to scaffold Clean Architecture FastAPI backend projects with o
 git clone https://github.com/lhajoosten/myfastapi-cli.git
 cd myfastapi-cli
 pip install -e .
-```
+```text
 
 ### 2. Generate a new project
 
 ```bash
 myfastapi new myproject
-```
+```text
 
 - By default, this uses a layered structure for a single-domain project.
 
@@ -39,20 +42,36 @@ myfastapi new myproject
 ```bash
 myfastapi new myproject --modular
 # You'll be prompted for module names, e.g. "auth,finance,weather"
-```
+```bash
 
 ### 3. Add new modules (modular projects only)
 
 ```bash
 myfastapi add-module analytics
-```
+```bash
 
 ### 4. Run your generated project
 
 ```bash
 cd myproject
 uvicorn app.main:app --reload
-```
+```bash
+
+### 5. Generate CRUD skeleton (layered)
+
+```bash
+myfastapi generate-crud Book --path myproject
+```text
+
+Generates handlers/service/router for a Book entity and auto-registers the router.
+
+### 6. Generate CRUD skeleton inside a module (modular)
+
+```bash
+myfastapi generate-crud Item --path myproject/app/inventory --modular
+```text
+
+
 
 ---
 
@@ -60,7 +79,7 @@ uvicorn app.main:app --reload
 
 ### Default (Layered)
 
-```
+```text
 myproject/
 ├── app/
 │   ├── domain/
@@ -168,11 +187,11 @@ myproject/
 ├── Dockerfile
 └── README.md
 
-```
+```text
 
 ### Modular (Vertical Slice)
 
-```
+```text
 myproject/
 ├── app/
 │   ├── auth/
@@ -270,8 +289,9 @@ myproject/
 
 ## Built-in Authentication
 
-- Ready-to-use JWT authentication endpoints, user entity, role-based access decorators, and extendable for OAuth.
-- Secure by default, and easily customizable.
+Ready-to-use JWT authentication endpoints (register/login/me), user entity, role-based access helper (`require_roles`). Customize or swap persistence easily.
+
+See `docs/architecture.md` for layer overview.
 
 ---
 
@@ -294,13 +314,26 @@ myproject/
 
 ## Roadmap
 
-- [x] Scaffold new project (layered and modular)
-- [x] Built-in authentication
-- [ ] Add CQRS/CRUD code generators
-- [ ] Support for more auth providers (OAuth, SSO)
-- [ ] Built-in AI service abstraction
-- [ ] Optional Celery integration
+- [x] Layered & modular project scaffolding
+- [x] Built-in authentication (JWT)
+- [x] CRUD code generator (create/get + full mode update/delete/list)
+- [x] list-routers & make-plugin helper commands
+- [x] Rich mediator behaviors & Result model integration
+- [x] Optional SQLAlchemy repository/service skeleton flag (--sqlalchemy)
+- [x] Result adapter utility for consistent HTTP mapping
+- [x] Custom field flag (--fields)
+- [ ] Additional auth providers (OAuth2, SSO)
+- [ ] Async generation flag (--async) for handlers/services
+- [ ] AI service abstraction
+- [ ] Task queue (Celery / RQ) optional integration
 - [ ] Frontend scaffold generator
+
+Additional docs:
+
+- `docs/architecture.md`
+- `docs/cli_commands.md`
+- `docs/plugins.md`
+- `docs/behaviors.md`
 
 ---
 

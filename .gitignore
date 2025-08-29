@@ -1,3 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+
+# Local
+.env
+
+# Test / coverage
+.pytest_cache/
+.coverage*
+coverage.xml
+htmlcov/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
